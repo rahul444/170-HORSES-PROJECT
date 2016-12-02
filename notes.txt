@@ -3,5 +3,6 @@ find sink run dfs on reverse
 consider vertex weight
 
 run algorithm multiple times (hour +)
-run both algorithm on each input, selecte max
+find highest vertex or 2, do dfs from there (greedy)
+run both algorithm on each input, selected max
 brute force 4 vertices graphs (consider every path, 4!)
