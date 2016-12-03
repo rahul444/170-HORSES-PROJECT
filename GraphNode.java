@@ -3,10 +3,12 @@ import java.util.HashSet;
 
 public class GraphNode {
   public int value;
+  public int index;
   ArrayList<GraphNode> neighbors;
 
-  public GraphNode(int value) {
+  public GraphNode(int value, int index) {
     this.value = value;
+    this.index = index;
     this.neighbors = new ArrayList<GraphNode>();
   }
 
@@ -22,16 +24,20 @@ public class GraphNode {
     return "Value: " + this.value + ", Neighbors:" +  neighbors;
   }
 
-  public static void DFS(GraphNode start, HashSet<GraphNode> visited) {
+  public static void DFS(GraphNode start, 
+                    HashSet<GraphNode> visited, 
+                    HashSet<GraphNode> available) {
+    
     System.out.println(start.value);
     visited.add(start);
+    available.remove(start);
+    
     for (GraphNode v : start.neighbors) {
       if (!visited.contains(v)) {
         visited.add(v);
-        DFS(v, visited);
+        available.remove(v);
+        DFS(v, visited, available);
       }
     }
-
-
   }
 }

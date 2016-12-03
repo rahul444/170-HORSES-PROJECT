@@ -2,14 +2,18 @@ import java.util.*;
 import java.io.*;
 public class DFSAlgo {
     public static void main(String[] args) {
-        File file = new File("./in/13.in");
+        File file = new File("../final_project/3.in");
         Scanner input = null;
         try {
             input = new Scanner(file);
         } catch (Exception e) {
             System.out.println(e);
         }
+
         ArrayList<GraphNode> vertices = new ArrayList<GraphNode>();
+        HashSet<GraphNode> visited = new HashSet<GraphNode>();
+        HashSet<GraphNode> available = new HashSet<GraphNode>();
+        
         int v = Integer.parseInt(input.nextLine());
         int[][] matrix = new int[v][v];
         for (int i = 0; i < v; i++) {
@@ -20,7 +24,9 @@ public class DFSAlgo {
         }
 
         for (int i = 0; i < v; i++) {
-            vertices.add(new GraphNode(matrix[i][i]));
+            GraphNode newVertex = new GraphNode(matrix[i][i], i);
+            vertices.add(newVertex);
+            available.add(newVertex);
         }
 
         for (int i = 0; i < v; i++) {
@@ -31,9 +37,29 @@ public class DFSAlgo {
                 }
             }
         }
+        
+        ArrayList<Integer> vertexIndices = new ArrayList<Integer>();
+        for (int i = 0; i < v; i++) {
+            vertexIndices.add(i);
+        }
 
-        GraphNode.DFS(vertices.get(3), new HashSet<GraphNode>());
+        Collections.shuffle(vertexIndices);
+        int firstIndex = 0;
+        int numPaths = 0;
 
+        while (!available.isEmpty()) {
+            int indexToCheck = vertexIndices.get(firstIndex);
+            
+            GraphNode toSearch = vertices.get(indexToCheck);
+            if (!visited.contains(toSearch)) {
+                GraphNode.DFS(toSearch, visited, available);
+                System.out.println();
+                numPaths += 1;
+            }
+
+            firstIndex ++;
+        }
+        System.out.println(numPaths);
         input.close();
     }
 }
