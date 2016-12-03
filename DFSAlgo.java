@@ -9,7 +9,7 @@ public class DFSAlgo {
         } catch (Exception e) {
             System.out.println(e);
         }
-
+        ArrayList<GraphNode> vertices = new ArrayList<GraphNode>();
         int v = Integer.parseInt(input.nextLine());
         int[][] matrix = new int[v][v];
         for (int i = 0; i < v; i++) {
@@ -20,8 +20,19 @@ public class DFSAlgo {
         }
 
         for (int i = 0; i < v; i++) {
-            System.out.println(Arrays.toString(matrix[i]));
+            vertices.add(new GraphNode(matrix[i][i]));
         }
+
+        for (int i = 0; i < v; i++) {
+            int[] neighbors = matrix[i];
+            for (int j = 0; j < neighbors.length; j++) {
+                if (j != i && neighbors[j] == 1) {
+                    vertices.get(i).addNeighbor(vertices.get(j));
+                }
+            }
+        }
+
+        GraphNode.DFS(vertices.get(3), new HashSet<GraphNode>());
 
         input.close();
     }
