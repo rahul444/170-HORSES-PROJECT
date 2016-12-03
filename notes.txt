@@ -1,6 +1,7 @@
 run dfs with random
-find sink run dfs on reverse
+find sink, run dfs on reverse
 consider vertex weight
+merge teams together if possible
 
 run algorithm multiple times (hour +)
 find highest vertex or 2, do dfs from there (greedy)

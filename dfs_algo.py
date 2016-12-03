@@ -1,3 +1,4 @@
+from random import shuffle
 input_file = open('./in/13.in')
 lines = input_file.readlines()
 
@@ -9,3 +10,7 @@ for i in range(1, V):
     for j in range(len(line)):
         matrix[i-1][j] = int(line[j])
 print(matrix)
+
+# pick vertex randomly repeatedly
+x = [[i] for i in range(10)]
+shuffle(x)
