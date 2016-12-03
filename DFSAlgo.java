@@ -2,7 +2,7 @@ import java.util.*;
 import java.io.*;
 public class DFSAlgo {
     public static void main(String[] args) {
-        File file = new File("../final_project/3.in");
+        File file = new File("../final_project/2.in");
         Scanner input = null;
         try {
             input = new Scanner(file);
@@ -44,22 +44,39 @@ public class DFSAlgo {
         }
 
         Collections.shuffle(vertexIndices);
-        int firstIndex = 0;
-        int numPaths = 0;
+        int minPaths = 10000;
 
-        while (!available.isEmpty()) {
-            int indexToCheck = vertexIndices.get(firstIndex);
+        for (int i = 0; i < 250000; i++) {
+            int firstIndex = 0;
+            int numPaths = 0;
+
             
-            GraphNode toSearch = vertices.get(indexToCheck);
-            if (!visited.contains(toSearch)) {
-                GraphNode.DFS(toSearch, visited, available);
-                System.out.println();
-                numPaths += 1;
+            while (!available.isEmpty()) {
+                int indexToCheck = vertexIndices.get(firstIndex);
+                
+                GraphNode toSearch = vertices.get(indexToCheck);
+                if (!visited.contains(toSearch)) {
+                    GraphNode.DFS(toSearch, visited, available);
+                    // System.out.println();
+                    numPaths += 1;
+                }
+
+                firstIndex ++;
+            }
+            // System.out.println(numPaths);
+
+            visited = new HashSet<GraphNode>();
+            available = new HashSet<GraphNode>();
+            for (GraphNode vi : vertices) {
+                available.add(vi);
             }
 
-            firstIndex ++;
+            Collections.shuffle(vertexIndices);
+            if (minPaths > numPaths)
+                minPaths = numPaths;
         }
-        System.out.println(numPaths);
+
+        System.out.println(minPaths);
         input.close();
     }
 }

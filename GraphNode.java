@@ -28,7 +28,7 @@ public class GraphNode {
                     HashSet<GraphNode> visited, 
                     HashSet<GraphNode> available) {
     
-    System.out.println(start.value);
+    // System.out.println(start.value);
     visited.add(start);
     available.remove(start);
     
