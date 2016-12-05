@@ -2,7 +2,7 @@ import java.util.*;
 import java.io.*;
 public class DFSAlgo {
     public static void main(String[] args) {
-        File file = new File("../final_project/2.in");
+        File file = new File("../final_project/3.in");
         Scanner input = null;
         try {
             input = new Scanner(file);
@@ -45,10 +45,13 @@ public class DFSAlgo {
 
         Collections.shuffle(vertexIndices);
         int minPaths = 10000;
+        ArrayList<ArrayList<Integer>> bestSoFar = null;
+        int bestSoFarValue = -1;
 
-        for (int i = 0; i < 250000; i++) {
+        for (int i = 0; i < 100000; i++) {
             int firstIndex = 0;
-            int numPaths = 0;
+            // int numPaths = 0;
+            ArrayList<ArrayList<Integer>> output = new ArrayList<ArrayList<Integer>>();
 
             
             while (!available.isEmpty()) {
@@ -56,14 +59,21 @@ public class DFSAlgo {
                 
                 GraphNode toSearch = vertices.get(indexToCheck);
                 if (!visited.contains(toSearch)) {
-                    GraphNode.DFS(toSearch, visited, available);
-                    // System.out.println();
-                    numPaths += 1;
+                    ArrayList<Integer> team = new ArrayList<Integer>();
+                    GraphNode.DFS(toSearch, visited, available, team);
+                    output.add(team);
+                    // System.out.println(team.toString() + ": " + GraphNode.teamValue(team));
+                    // numPaths += 1;
                 }
-
                 firstIndex ++;
             }
-            // System.out.println(numPaths);
+
+            int solutionValue = GraphNode.valueOfSolution(output);
+            if (bestSoFar == null || bestSoFarValue < solutionValue) {
+                bestSoFar = output;
+                bestSoFarValue = solutionValue;
+            }
+
 
             visited = new HashSet<GraphNode>();
             available = new HashSet<GraphNode>();
@@ -72,11 +82,13 @@ public class DFSAlgo {
             }
 
             Collections.shuffle(vertexIndices);
-            if (minPaths > numPaths)
-                minPaths = numPaths;
         }
 
-        System.out.println(minPaths);
+        for (ArrayList<Integer> list : bestSoFar) {
+            // System.out.println(list.toString() + " ");
+            
+        }
+        System.out.println(bestSoFarValue);
         input.close();
     }
 }
