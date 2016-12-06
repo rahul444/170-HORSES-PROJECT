@@ -1,8 +1,9 @@
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Collections;
+import java.lang.Comparable;
 
-public class GraphNode {
+public class GraphNode implements Comparable<GraphNode> {
   public int value;
   public int index;
   ArrayList<GraphNode> neighbors;
@@ -11,6 +12,10 @@ public class GraphNode {
     this.value = value;
     this.index = index;
     this.neighbors = new ArrayList<GraphNode>();
+  }
+
+  public int compareTo(GraphNode n) {
+    return this.value - n.value;
   }
 
   public void addNeighbor(GraphNode v) {
@@ -34,8 +39,24 @@ public class GraphNode {
     visited.add(start);
     available.remove(start);
 
-    Collections.shuffle(start.neighbors);
-    for (GraphNode v : start.neighbors) {
+    ArrayList<GraphNode> topNeighbors = new ArrayList<GraphNode>();
+    Collections.sort(start.neighbors);
+
+    int j = 0;
+    for (int i = start.neighbors.size() - 1; i >= 0; i--) {
+      GraphNode p = start.neighbors.get(i);
+      if (!visited.contains(p) && j < 5) {
+        topNeighbors.add(p);
+        j++;
+      }
+
+      if (j >= 5)
+        break;
+    }
+
+    Collections.shuffle(topNeighbors);
+
+    for (GraphNode v : topNeighbors) {
       if (!visited.contains(v)) {
         visited.add(v);
         available.remove(v);
