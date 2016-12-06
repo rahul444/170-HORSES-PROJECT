@@ -3,8 +3,8 @@ import java.io.*;
 public class DFSAlgo {
     public static void main(String[] args) {
         ArrayList<String> lines = new ArrayList<String>();
-        for (int z = 1; z <= 1; z++) {
-            File file = new File("./in/" + "600" + ".in");
+        for (int z = 1; z <= 600; z++) {
+            File file = new File("./in/" + z + ".in");
             Scanner input = null;
             try {
                 input = new Scanner(file);
@@ -50,7 +50,7 @@ public class DFSAlgo {
             ArrayList<ArrayList<GraphNode>> bestSoFar = null;
             int bestSoFarValue = -1;
 
-            for (int i = 0; i < 1000; i++) {
+            for (int i = 0; i < 10; i++) {
                 int firstIndex = 0;
                 int numPaths = 0;
                 ArrayList<ArrayList<GraphNode>> output = new ArrayList<ArrayList<GraphNode>>();
