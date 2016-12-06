@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Collections;
 
 public class GraphNode {
   public int value;
@@ -32,12 +33,14 @@ public class GraphNode {
     team.add(start);
     visited.add(start);
     available.remove(start);
-    
+
+    Collections.shuffle(start.neighbors);
     for (GraphNode v : start.neighbors) {
       if (!visited.contains(v)) {
         visited.add(v);
         available.remove(v);
         DFS(v, visited, available, team);
+        break;
       }
     }
   }

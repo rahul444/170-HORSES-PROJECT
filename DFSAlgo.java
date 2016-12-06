@@ -4,7 +4,7 @@ public class DFSAlgo {
     public static void main(String[] args) {
         ArrayList<String> lines = new ArrayList<String>();
         for (int z = 1; z <= 600; z++) {
-            File file = new File("./in/" + "1" + ".in");
+            File file = new File("./in/" + z + ".in");
             Scanner input = null;
             try {
                 input = new Scanner(file);
@@ -93,7 +93,7 @@ public class DFSAlgo {
 
             output = output.substring(0, output.length() - 2);
             lines.add(output);
-            System.out.println("Done with graph " + z);
+            System.out.println("Done with graph " + z + " with value " + bestSoFarValue);
             input.close();
         }
 
