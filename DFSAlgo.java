@@ -4,7 +4,7 @@ public class DFSAlgo {
     public static void main(String[] args) {
         ArrayList<String> lines = new ArrayList<String>();
         for (int z = 1; z <= 600; z++) {
-            File file = new File("./in/" + z + ".in");
+            File file = new File("./in/" + "1" + ".in");
             Scanner input = null;
             try {
                 input = new Scanner(file);
@@ -47,14 +47,13 @@ public class DFSAlgo {
 
             Collections.shuffle(vertexIndices);
             int minPaths = 10000;
-            ArrayList<ArrayList<Integer>> bestSoFar = null;
-            ArrayList<ArrayList<Integer>> minSoFar = null;
+            ArrayList<ArrayList<GraphNode>> bestSoFar = null;
             int bestSoFarValue = -1;
 
-            for (int i = 0; i < 100000; i++) {
+            for (int i = 0; i < 10000; i++) {
                 int firstIndex = 0;
                 int numPaths = 0;
-                ArrayList<ArrayList<Integer>> output = new ArrayList<ArrayList<Integer>>();
+                ArrayList<ArrayList<GraphNode>> output = new ArrayList<ArrayList<GraphNode>>();
                 
 
                 
@@ -63,7 +62,7 @@ public class DFSAlgo {
                     
                     GraphNode toSearch = vertices.get(indexToCheck);
                     if (!visited.contains(toSearch) && available.size() != 0) {
-                        ArrayList<Integer> team = new ArrayList<Integer>();
+                        ArrayList<GraphNode> team = new ArrayList<GraphNode>();
                         GraphNode.DFS(toSearch, visited, available, team);
                         output.add(team);
                         // System.out.println(team.toString() + ": " + GraphNode.teamValue(team));
@@ -78,11 +77,6 @@ public class DFSAlgo {
                     bestSoFarValue = solutionValue;
                 }
 
-
-                if (minSoFar == null) {
-                    minSoFar = output;
-                }
-
                 visited = new HashSet<GraphNode>();
                 available = new HashSet<GraphNode>();
                 for (GraphNode vi : vertices) {
@@ -90,20 +84,16 @@ public class DFSAlgo {
                 }
 
                 Collections.shuffle(vertexIndices);
-                if (minPaths > numPaths) {
-                    minPaths = numPaths;
-                    minSoFar = output;
-                }
             }
 
             String output = "";
-            for (ArrayList<Integer> list : bestSoFar) {
+            for (ArrayList<GraphNode> list : bestSoFar) {
                 output += createListString(list) + "; ";
             }
 
             output = output.substring(0, output.length() - 2);
             lines.add(output);
-            int minSolValue = GraphNode.valueOfSolution(minSoFar);
+            System.out.println("Done with graph " + z);
             input.close();
         }
 
@@ -120,11 +110,11 @@ public class DFSAlgo {
         }
     }
 
-    public static String createListString(ArrayList<Integer> team) {
+    public static String createListString(ArrayList<GraphNode> team) {
             String output = "";
 
-            for (int horse : team) {
-                output += (horse + " ");
+            for (GraphNode horse : team) {
+                output += (horse.index + " ");
             }
 
             return output.substring(0, output.length() - 1); 

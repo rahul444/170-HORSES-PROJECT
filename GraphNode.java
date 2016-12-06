@@ -27,10 +27,9 @@ public class GraphNode {
   public static void DFS(GraphNode start, 
                     HashSet<GraphNode> visited, 
                     HashSet<GraphNode> available,
-                    ArrayList<Integer> team) {
+                    ArrayList<GraphNode> team) {
     
-    // System.out.println(start.value);
-    team.add(start.index);
+    team.add(start);
     visited.add(start);
     available.remove(start);
     
@@ -43,20 +42,20 @@ public class GraphNode {
     }
   }
 
-  public static int teamValue(ArrayList<Integer> team) {
+  public static int teamValue(ArrayList<GraphNode> team) {
     int sum = 0;
-    for (int i : team) {
-      sum += i;
+    for (GraphNode i : team) {
+      sum += i.value;
     }
     return sum * team.size();
   }
 
-  public static int valueOfSolution(ArrayList<ArrayList<Integer>> sol) {
+  public static int valueOfSolution(ArrayList<ArrayList<GraphNode>> sol) {
     int sum = 0;
-    for (ArrayList<Integer> j : sol) {
+    for (ArrayList<GraphNode> j : sol) {
       sum += GraphNode.teamValue(j);
     }
 
-    return sum;
+    return sum ;
   }
 }
